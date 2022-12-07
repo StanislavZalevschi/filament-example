@@ -23,7 +23,11 @@ class ProductResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Forms\Components\Fieldset::make('Author')
+                    ->schema([
+                        Forms\Components\Select::make('name')
+                            ->relationship('author', 'name'),
+                    ])
             ]);
     }
 
@@ -45,14 +49,14 @@ class ProductResource extends Resource
                 Tables\Actions\RestoreBulkAction::make(),
             ]);
     }
-    
+
     public static function getRelations(): array
     {
         return [
             //
         ];
     }
-    
+
     public static function getPages(): array
     {
         return [
@@ -60,8 +64,8 @@ class ProductResource extends Resource
             'create' => Pages\CreateProduct::route('/create'),
             'edit' => Pages\EditProduct::route('/{record}/edit'),
         ];
-    }    
-    
+    }
+
     public static function getEloquentQuery(): Builder
     {
         return parent::getEloquentQuery()
